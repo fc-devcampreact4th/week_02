@@ -8,10 +8,12 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Route path="/" exact component={Home} />
-                <Route path="/profile" exact component={Profile} />
-                <Route path="/profile/:id" component={Profile} />
-                <Route path="/about" component={About} />
+                <switch>
+                    <Route path="/profile/:id" component={Profile} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/about" component={About} />
+                    <Route path="/" component={Home} />
+                </switch>
             </BrowserRouter>
         </div>
     );
