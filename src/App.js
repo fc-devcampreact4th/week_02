@@ -1,8 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
+import querySting from "query-string";
+
+const activeStyle = { color: "green" };
 
 function App() {
     return (
@@ -10,19 +13,47 @@ function App() {
             <BrowserRouter>
                 <ul>
                     <li>
-                        <Link to="/">/</Link>
+                        <NavLink exact to="/" activeStyle={activeStyle}>
+                            /
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/profile">/profile</Link>
+                        <NavLink exact to="/profile" activeStyle={activeStyle}>
+                            /profile
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/profile/1">/profile</Link>
+                        <NavLink to="/profile/1" activeStyle={activeStyle}>
+                            /profile
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/about">/about</Link>
+                        <NavLink
+                            to="/about"
+                            activeStyle={activeStyle}
+                            isActive={(match, location) => {
+                                if (location.pathname !== "/about")
+                                    return false;
+                                const query = querySting.parse(location.search);
+                                return query.name === undefined;
+                            }}
+                        >
+                            /about
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/about?name=Kim">/about</Link>
+                        <NavLink
+                            to="/about?name=Kim"
+                            activeStyle={activeStyle}
+                            isActive={(match, location) => {
+                                if (location.pathname !== "/about")
+                                    return false;
+                                const query = querySting.parse(location.search);
+                                return query.name !== undefined;
+                            }}
+                        >
+                            /about?name=kim
+                        </NavLink>
                     </li>
                 </ul>
                 <Switch>
